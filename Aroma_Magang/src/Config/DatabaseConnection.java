@@ -4,10 +4,27 @@
  */
 package Config;
 
+import java.sql.*;
+
 /**
  *
  * @author muhrobby
  */
 public class DatabaseConnection {
-    String a = "abdsad";
+       public static Connection connect(){
+           Connection conn = null;
+           
+           try {
+               String url = "jdbc:mysql://localhost:3306/aroma_magang";
+               String user = "root";
+               String pass = "";
+               conn = DriverManager.getConnection(url, user, pass);
+               System.out.println("Koneksi Berhasil");
+           } catch (SQLException e) {
+               System.out.println("Koneksi gagal : " + e.getMessage());
+           }
+           
+           return conn;
+       }
+    
 }
