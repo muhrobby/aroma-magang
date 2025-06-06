@@ -9,5 +9,5 @@ package Config;
  * @author muhrobby
  */
 public class DatabaseConnection {
-    String a = "a";
+    String a = "abcs";
 }
