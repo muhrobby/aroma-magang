@@ -18,6 +18,7 @@ public class DatabaseConnection {
                String url = "jdbc:mysql://localhost:3306/aroma_magang";
                String user = "root";
                String pass = "";
+               String nama = "ica";
                conn = DriverManager.getConnection(url, user, pass);
                System.out.println("Koneksi Berhasil");
            } catch (SQLException e) {
