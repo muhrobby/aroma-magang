@@ -21,6 +21,7 @@ public class DatabaseConnection {
                String nama = "ica";
                   String test = "test";
                   String kelas = "03";
+                  String abc = "abc";
                conn = DriverManager.getConnection(url, user, pass);
                System.out.println("Koneksi Berhasil");
            } catch (SQLException e) {
