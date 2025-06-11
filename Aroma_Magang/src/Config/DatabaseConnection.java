@@ -18,11 +18,6 @@ public class DatabaseConnection {
                String url = "jdbc:mysql://localhost:3306/aroma_magang";
                String user = "root";
                String pass = "";
-               String nama = "ica";
-                  String test = "test";
-                  String kelas = "03";
-                  String abc = "abc";
-                  String seminar = "ikut";
                conn = DriverManager.getConnection(url, user, pass);
                System.out.println("Koneksi Berhasil");
            } catch (SQLException e) {
