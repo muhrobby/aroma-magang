@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Auth;
+import Admin.DashboardAdmin;
 import Config.DatabaseConnection;
+import Config.HashUtil;
 import Mahasiswa.DashboardMahasiswa;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
 
 /**
  *
@@ -121,7 +123,7 @@ public class FormLogin extends javax.swing.JFrame {
         try {
             Connection conn = DatabaseConnection.connect();
             String sql = "SELECT password, akses FROM users WHERE username =?";
-            PreparedStatement pst = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             
@@ -134,9 +136,9 @@ public class FormLogin extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Login Berhasil!");
                     
                     if("admin".equalsIgnoreCase(akses)){
-                        new DashboardMahasiswa(username, akses).setVisible(true);
+                        new DashboardAdmin(username, akses).setVisible(true);
                     } else if ("mahasiswa".equalsIgnoreCase(akses)) {
-                        new Dashboard(username, akses).setVisible(true);
+                        new DashboardMahasiswa(username, akses).setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(this, "Hak akses tidak ditemukan!");
                 }
