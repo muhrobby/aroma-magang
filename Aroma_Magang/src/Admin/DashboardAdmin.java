@@ -11,12 +11,16 @@ package Admin;
 public class DashboardAdmin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardAdmin.class.getName());
+    
+    private String nimUser, aksesUser;
 
     /**
      * Creates new form DashboardAdmin
      */
-    public DashboardAdmin() {
+    public DashboardAdmin(String nim,String akses) {
         initComponents();
+        this.nimUser = nim;
+        this.aksesUser = akses;
     }
 
     /**
@@ -38,6 +42,11 @@ public class DashboardAdmin extends javax.swing.JFrame {
         jMenu2.setText("Mahasiswa");
 
         jMenuItem1.setText("Form Mahasiswa");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
@@ -61,6 +70,11 @@ public class DashboardAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        new FormMahasiswa().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -83,7 +97,11 @@ public class DashboardAdmin extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new DashboardAdmin().setVisible(true));
+//        java.awt.EventQueue.invokeLater(() -> new DashboardAdmin().setVisible(true));
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

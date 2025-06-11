@@ -7,7 +7,6 @@ import Config.DatabaseConnection;
 import Config.HashUtil;
 import java.sql.*;
 import javax.swing.JOptionPane;
-import java.sql.PreparedStatement;
 import Admin.DashboardAdmin;
 import Mahasiswa.DashboardMahasiswa;
 /**
@@ -110,41 +109,45 @@ public class FormLogin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String username = jTextField1.getText().trim();
+        String input = jTextField1.getText().trim();
         String inputPassword = new String(jPasswordField1.getPassword()).trim();
         
-        if(username.isEmpty() || inputPassword.isEmpty()) {
+        if(input.isEmpty() || inputPassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username dan Password harus diisi!");
             return;
         }
         
         try {
             Connection conn = DatabaseConnection.connect();
-            String sql = "SELECT password, akses FROM users WHERE username =?";
+            String sql = "SELECT password, akses, nim FROM users WHERE nama = ? OR nim = ?";
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, username);
+            pst.setString(1, input);
+            pst.setString(2, input);
             ResultSet rs = pst.executeQuery();
             
-            if(rs.next()) 
+            if(rs.next()) {
                 String dbHashedPassword = rs.getString("password");
                 String akses = rs.getString("akses");
+                String nim = rs.getString("nim");
                 String inputHashed = HashUtil.hashPassword(inputPassword);
                 
-                if(dbHashedPassword.equals(inputHashed)) {
+                if(dbHashedPassword.equals(inputPassword)) {
                     JOptionPane.showMessageDialog(this, "Login Berhasil!");
                     
                     if("admin".equalsIgnoreCase(akses)){
-                        new DashboardAdmin(username, akses).setVisible(true);
+                        new DashboardAdmin(nim, akses).setVisible(true);
                     } else if ("mahasiswa".equalsIgnoreCase(akses)) {
-                        new DashboardMahasiswa(username, akses).setVisible(true);
+                        new DashboardMahasiswa(nim, akses).setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(this, "Hak akses tidak ditemukan!");
-                }
-                    
+                    }   
                     this.dispose();
-            }else {
+                } else {
                     JOptionPane.showMessageDialog(this, "password salah!");
                 }
+            }else {
+                    JOptionPane.showMessageDialog(this, "password salah!");
+            }
         }catch(Exception e) {
                 JOptionPane.showMessageDialog(this, "Error: "+ e.getMessage());
                 }

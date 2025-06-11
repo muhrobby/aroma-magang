@@ -18,12 +18,13 @@ import javax.swing.JOptionPane;
 public class FormPengajuanMagang extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormPengajuanMagang.class.getName());
-
+    private String nimUser;
     /**
      * Creates new form FormPengajuanMagang
      */
-    public FormPengajuanMagang() {
+    public FormPengajuanMagang(String nim) {
         initComponents();
+        this.nimUser = nim;
     }
 
     /**
@@ -268,7 +269,7 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     this.dispose(); // Menutup form sekarang
-    new DashboardMahasiswa().setVisible(true);
+    new DashboardMahasiswa("nim","akses").setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -293,7 +294,12 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormPengajuanMagang().setVisible(true));
+//        java.awt.EventQueue.invokeLater(() -> new FormPengajuanMagang().setVisible(true));
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//            }
+//        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
