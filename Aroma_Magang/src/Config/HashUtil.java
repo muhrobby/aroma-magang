@@ -18,7 +18,7 @@ public class HashUtil {
                 hexString.append(String.format("%02x", b));
             }
             return hexString.toString();
-        } catch (Exception e) {
+        }catch(Exception e) {
             throw new RuntimeException(e);
         }
     }
