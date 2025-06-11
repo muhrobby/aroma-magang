@@ -3,15 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Auth;
-import Admin.DashboardAdmin;
 import Config.DatabaseConnection;
 import Config.HashUtil;
-import Mahasiswa.DashboardMahasiswa;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
-
-
+import Admin.DashboardAdmin;
+import Mahasiswa.DashboardMahasiswa;
 /**
  *
  * @author muhrobby
@@ -123,9 +121,9 @@ public class FormLogin extends javax.swing.JFrame {
         try {
             Connection conn = DatabaseConnection.connect();
             String sql = "SELECT password, akses FROM users WHERE username =?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, username);
-            ResultSet rs = stmt.executeQuery();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, username);
+            ResultSet rs = pst.executeQuery();
             
             if(rs.next()) 
                 String dbHashedPassword = rs.getString("password");
