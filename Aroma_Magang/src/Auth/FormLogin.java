@@ -3,8 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Auth;
+import Config.DatabaseConnection;
+import Mahasiswa.DashboardMahasiswa;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -117,21 +121,21 @@ public class FormLogin extends javax.swing.JFrame {
         try {
             Connection conn = DatabaseConnection.connect();
             String sql = "SELECT password, akses FROM users WHERE username =?";
-            PreparedStatement stmt = conn.PrepareStatement(sql);
+            PreparedStatement pst = conn.prepareStatement(sql);
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             
-            if(rs.next()) {
+            if(rs.next()) 
                 String dbHashedPassword = rs.getString("password");
                 String akses = rs.getString("akses");
                 String inputHashed = HashUtil.hashPassword(inputPassword);
                 
                 if(dbHashedPassword.equals(inputHashed)) {
-                    JOptionPane.showMessageDialo(this, "Login Berhasil!");
+                    JOptionPane.showMessageDialog(this, "Login Berhasil!");
                     
                     if("admin".equalsIgnoreCase(akses)){
-                        new Dashboard(username, akses).setVisible(true);
-                    } else if ("mahasiswa".equalsIgnoreCase(akses) {
+                        new DashboardMahasiswa(username, akses).setVisible(true);
+                    } else if ("mahasiswa".equalsIgnoreCase(akses)) {
                         new Dashboard(username, akses).setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(this, "Hak akses tidak ditemukan!");
