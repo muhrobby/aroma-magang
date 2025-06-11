@@ -3,10 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Mahasiswa;
+import Config.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 
 
@@ -50,7 +49,6 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -79,18 +77,9 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
 
         jLabel10.setText("Dosen Pembimbing");
 
-        jLabel12.setText("Status Pengajuan");
-
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jTextField5.setText(" ");
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
             }
         });
 
@@ -135,9 +124,7 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(jLabel12))
                         .addGap(57, 57, 57)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField4))))
+                        .addComponent(jTextField4)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,10 +158,8 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
                         .addGap(94, 94, 94)
                         .addComponent(jLabel10)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(jLabel12)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jButton1.setBackground(new java.awt.Color(204, 255, 255));
@@ -221,14 +206,14 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap())
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -238,10 +223,6 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         jTextField1.setText("");
@@ -249,8 +230,7 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
         jComboBox1.setSelectedIndex(0);
         jTextField3.setText("");
         jTextArea1.setText("");
-        jTextField4.setText("");
-        jTextField5.setText("");   
+        jTextField4.setText("");  
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -261,7 +241,7 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
         String tempat = jTextField3.getText();
         String alamat = jTextArea1.getText();
         String dosen = jTextField4.getText();
-        String status = jTextField5.getText();
+        
         
         if(nim.isEmpty() || nama.isEmpty() || tempat.isEmpty() || alamat.isEmpty() || dosen.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!");
@@ -269,14 +249,13 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
             try{
                 Connection conn = DatabaseConnection.getConnection();
                 String sql = "INSERT INTO pengajuan (nim, nama, prodi, tempat, alamat, dosen, status) VALUES (?,?,?,?,?,?,?)";
-                PrepareStatement pst = conn.prepareStatement(sql);
+                PreparedStatement pst = conn.prepareStatement(sql);
                 pst.setString(1, nim);
                 pst.setString(2, nama);
                 pst.setString(3, prodi);
                 pst.setString(4, tempat);
                 pst.setString(5, alamat);
                 pst.setString(6, dosen);
-                pst.setString(7, status);
                 
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
@@ -338,6 +317,5 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
