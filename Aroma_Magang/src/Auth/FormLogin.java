@@ -115,7 +115,7 @@ public class FormLogin extends javax.swing.JFrame {
         }
         
         try {
-            
+            Connection conn = DatabaseConnection.connect();
             String sql = "SELECT password, akses FROM users WHERE username =?";
             PreparedStatement stmt = conn.PrepareStatement(sql);
             stmt.setString(1, username);
