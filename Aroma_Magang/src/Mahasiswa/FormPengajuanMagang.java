@@ -25,6 +25,8 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
     public FormPengajuanMagang(String nim) {
         initComponents();
         this.nimUser = nim;
+        jTextField1.setEnabled(false);
+        jTextField1.setText(nimUser);
     }
 
     /**
@@ -60,6 +62,7 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
         jLabel4.setText("jLabel4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("FORM PENGAJUAN MAGANG");
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -218,6 +221,7 @@ public class FormPengajuanMagang extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

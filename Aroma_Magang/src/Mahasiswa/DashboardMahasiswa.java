@@ -39,6 +39,7 @@ public class DashboardMahasiswa extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("DASHBOARD MAHASISWA");
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -69,6 +70,7 @@ public class DashboardMahasiswa extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
