@@ -88,7 +88,7 @@ public class ListPengajuanSemua extends javax.swing.JFrame {
 
         jLabel8.setText("Status   :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ditolak", "Diterima", "Menunggu" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ditolak", "Diterima", "Diproses" }));
         jComboBox1.setSelectedIndex(-1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

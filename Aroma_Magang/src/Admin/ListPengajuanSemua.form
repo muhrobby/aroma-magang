@@ -255,7 +255,7 @@
               <StringArray count="3">
                 <StringItem index="0" value="Ditolak"/>
                 <StringItem index="1" value="Diterima"/>
-                <StringItem index="2" value="Menunggu"/>
+                <StringItem index="2" value="Diproses"/>
               </StringArray>
             </Property>
             <Property name="selectedIndex" type="int" value="-1"/>
