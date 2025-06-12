@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Admin;
-
+import Config.DatabaseConnection;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author muhrobby
@@ -17,6 +20,23 @@ public class FormUser extends javax.swing.JFrame {
      */
     public FormUser() {
         initComponents();
+        tampilDataUser();
+    }
+    
+    public void tampilDataUser(){
+        try {
+           Connection conn = DatabaseConnection.connect();
+           String query = "SELECT * FROM users";
+           PreparedStatement stmt = conn.prepareStatement(query);
+           ResultSet rs = stmt.executeQuery();
+            
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"ID","Nama","Akses","NIM"},0);
+        
+        jTable1.setModel(model);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error : "+e.getMessage());
+        }
+
     }
 
     /**
