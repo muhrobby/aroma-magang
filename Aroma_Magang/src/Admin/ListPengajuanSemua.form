@@ -11,7 +11,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ListPengajuanSemua"/>
+            <Property name="text" type="java.lang.String" value="List Pengajuan Semua"/>
           </Properties>
         </Menu>
       </SubComponents>

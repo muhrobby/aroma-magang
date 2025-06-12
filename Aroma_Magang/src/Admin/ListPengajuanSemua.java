@@ -172,7 +172,7 @@ public class ListPengajuanSemua extends javax.swing.JFrame {
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("ListPengajuanSemua");
+        jMenu2.setText("List Pengajuan Semua");
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
