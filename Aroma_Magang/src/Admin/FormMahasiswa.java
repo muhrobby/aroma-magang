@@ -268,7 +268,6 @@ public class FormMahasiswa extends javax.swing.JDialog {
             Connection conn = DatabaseConnection.connect();
             String query = "SELECT * FROM mahasiswa WHERE nim =? ";
             PreparedStatement stmt = conn.prepareStatement(query);
-            String nama = "aby";
         } catch (Exception e) {
         }
             
