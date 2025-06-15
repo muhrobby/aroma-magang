@@ -254,6 +254,11 @@ public class FormUser extends javax.swing.JDialog {
         nim = null;
         String hashPass = Config.HashUtil.hashPassword(password);
         
+        if (nama.isEmpty() || password.isEmpty() || akses.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Pastikan semua field sudah terisi","ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         
         try {
             Connection conn = DatabaseConnection.connect();
@@ -271,7 +276,7 @@ public class FormUser extends javax.swing.JDialog {
             clearForm();;
         } catch (SQLException e) {
             
-            JOptionPane.showMessageDialog(this, "Gagal membuat user : " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Gagal membuat user : " + e.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnTambahActionPerformed
 
