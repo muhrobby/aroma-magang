@@ -11,15 +11,16 @@ public class DashboardAdmin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardAdmin.class.getName());
     
-    private String nimUser, aksesUser;
+    private String nimUser, aksesUser, namaUser;
 
     /**
      * Creates new form DashboardAdmin
      */
-    public DashboardAdmin(String nim,String akses) {
+    public DashboardAdmin(String nim,String akses,String nama) {
         initComponents();
         this.nimUser = nim;
         this.aksesUser = akses;
+        this.namaUser = nama;
         
     }
 
@@ -37,6 +38,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -47,7 +49,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         desktopAdminPane.setLayout(desktopAdminPaneLayout);
         desktopAdminPaneLayout.setHorizontalGroup(
             desktopAdminPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 888, Short.MAX_VALUE)
+            .addGap(0, 876, Short.MAX_VALUE)
         );
         desktopAdminPaneLayout.setVerticalGroup(
             desktopAdminPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -67,6 +69,10 @@ public class DashboardAdmin extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu1.setText("Magang");
+
+        jMenuItem3.setText("List Pengajuan");
+        jMenu1.add(jMenuItem3);
+
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("User");
@@ -87,7 +93,10 @@ public class DashboardAdmin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopAdminPane)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(desktopAdminPane)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,5 +163,6 @@ public class DashboardAdmin extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }
