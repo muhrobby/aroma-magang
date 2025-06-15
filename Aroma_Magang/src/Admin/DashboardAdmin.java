@@ -72,6 +72,11 @@ public class DashboardAdmin extends javax.swing.JFrame {
         jMenu3.setText("User");
 
         jMenuItem2.setText("Form User");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
@@ -103,6 +108,14 @@ public class DashboardAdmin extends javax.swing.JFrame {
 
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        
+        FormUser formUser = new FormUser(this, false);
+        formUser.setLocationRelativeTo(this);
+        formUser.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

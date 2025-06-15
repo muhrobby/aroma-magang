@@ -143,7 +143,7 @@ public class FormLogin extends javax.swing.JFrame {
                 String nama = rs.getString("nama");
                 String inputHashed = HashUtil.hashPassword(inputPassword);
                 
-                if(dbHashedPassword.equals(inputHashed)) {
+                if(dbHashedPassword.equals(inputPassword)) {
                     JOptionPane.showMessageDialog(this, "Login Berhasil!");
                     
                     if("admin".equalsIgnoreCase(akses)){
