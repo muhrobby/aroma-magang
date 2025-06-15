@@ -1,71 +1,22 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Mahasiswa;
-import Config.DatabaseConnection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
-
-
-
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author muhrobby
  */
-public class FormPengajuanMagang extends javax.swing.JDialog {
+public class NewJFrame extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormPengajuanMagang.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(NewJFrame.class.getName());
 
-    private String nimUser, namaUser;
     /**
-     * Creates new form FormPengajuanMagang
+     * Creates new form NewJFrame
      */
-    public FormPengajuanMagang(java.awt.Frame parent, boolean modal, String nim, String nama) {
-        super(parent, modal);
+    public NewJFrame() {
         initComponents();
-        tampilFormPengajuanMagang();
-        this.nimUser = nim;
-        this.namaUser = nama;
-        
-        jTextField1.setEnabled(false);
-        jTextField2.setEnabled(false);
-        jTextField1.setText(nimUser);
-        jTextField2.setText(namaUser);
-    }
-
-    public final void tampilFormPengajuanMagang (){
-        try {
-           Connection conn = DatabaseConnection.connect();
-           String query = "SELECT * FROM pengajuan";
-           PreparedStatement stmt = conn.prepareStatement(query);
-           ResultSet rs = stmt.executeQuery();
-            
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"id","nim","nama","prodi","tempat","alamat", "dosen"},0);
-        
-            while (rs.next()) {                
-                model.addRow(new Object[]{
-                rs.getString("id"),
-                rs.getString("nim"),
-                rs.getString("nama"),
-                rs.getString("prodi"),
-                rs.getInt("tempat"),
-                rs.getString("alamat"),
-                rs.getString("dosen"),
-                rs.getString("status"),
-                rs.getDate("created_at")
-                });
-            }
-        jTable1.setModel(model);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error : "+e.getMessage());
-        }
-
     }
 
     /**
@@ -77,10 +28,6 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -97,37 +44,12 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
         jTextArea1 = new javax.swing.JTextArea();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jButton1.setBackground(new java.awt.Color(204, 255, 255));
-        jButton1.setText("Tambah");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setBackground(new java.awt.Color(153, 255, 255));
-        jButton2.setText("Hapus");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton3.setText("Perbaharui ");
 
@@ -211,6 +133,35 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
+        jButton1.setBackground(new java.awt.Color(204, 255, 255));
+        jButton1.setText("Tambah");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(153, 255, 255));
+        jButton2.setText("Hapus");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -260,7 +211,6 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
         String alamat = jTextArea1.getText();
         String dosen = jTextField4.getText();
 
-        
         if(nim.isEmpty() || nama.isEmpty() || tempat.isEmpty() || alamat.isEmpty() || dosen.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
@@ -314,20 +264,8 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
         }
         //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                FormPengajuanMagang dialog = new FormPengajuanMagang(new javax.swing.JFrame(), true, null, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new NewJFrame().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

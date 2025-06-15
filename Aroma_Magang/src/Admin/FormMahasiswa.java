@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import Config.DatabaseConnection;
 import javax.swing.JOptionPane;
+import Config.RandomNim;
+import Config.HashUtil;
 
 /**
  *
@@ -16,7 +18,8 @@ import javax.swing.JOptionPane;
 public class FormMahasiswa extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormMahasiswa.class.getName());
-
+    public String nim,nama, prodi, no_hp, email;
+    public int semester;
     private String nimUSer;
     /**
      * Creates new form FormMahasiswa
@@ -28,6 +31,15 @@ public class FormMahasiswa extends javax.swing.JDialog {
         tampilDataMahasiswa();
     }
     
+    public void clearForm(){
+                txtNama.setText("");
+                comboProdi.setSelectedIndex(-1);
+                comboSemester.setSelectedIndex(-1);
+                txtNoHp.setText("");
+                txtEmail.setText("");
+     
+    }
+
     public void tampilDataMahasiswa(){
         try {
            Connection conn = DatabaseConnection.connect();
@@ -64,6 +76,8 @@ public class FormMahasiswa extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableMahasiswa = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNama = new javax.swing.JTextField();
@@ -75,16 +89,30 @@ public class FormMahasiswa extends javax.swing.JDialog {
         comboSemester = new javax.swing.JComboBox<>();
         txtNoHp = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnSimpan = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableMahasiswa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("FORM MAHASISWA");
+
+        tableMahasiswa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tableMahasiswa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMahasiswaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableMahasiswa);
 
         jLabel1.setText("Nama");
 
@@ -122,10 +150,10 @@ public class FormMahasiswa extends javax.swing.JDialog {
                             .addComponent(jLabel4)
                             .addComponent(jLabel6)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNoHp, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(comboSemester, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtNoHp)
                             .addComponent(txtEmail))))
                 .addContainerGap())
         );
@@ -155,8 +183,6 @@ public class FormMahasiswa extends javax.swing.JDialog {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jLabel3.setText("FORM MAHASISWA");
-
         btnSimpan.setText("Simpan");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,13 +198,13 @@ public class FormMahasiswa extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,24 +218,6 @@ public class FormMahasiswa extends javax.swing.JDialog {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        tableMahasiswa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tableMahasiswa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableMahasiswaMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tableMahasiswa);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,60 +227,94 @@ public class FormMahasiswa extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(329, 329, 329)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableMahasiswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMahasiswaMouseClicked
+        // TODO add your handling code here:
+
+        int baris = tableMahasiswa.rowAtPoint(evt.getPoint());
+
+        String nim = tableMahasiswa.getValueAt(baris, 0).toString();
+
+        try {
+            Connection conn = DatabaseConnection.connect();
+            String query = "SELECT * FROM mahasiswa WHERE nim =? ";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, nim);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                txtNama.setText(rs.getString("nama"));
+                comboProdi.setSelectedItem(rs.getString("prodi"));
+                comboSemester.setSelectedItem(rs.getString("semester"));
+                txtNoHp.setText(rs.getString("no_hp"));
+                txtEmail.setText(rs.getString("email"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error : " + e.getMessage());
+        }
+    }//GEN-LAST:event_tableMahasiswaMouseClicked
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
         
+        
+
         try {
-            String nama = txtNama.getText().trim();
-            String prodi = comboProdi.getSelectedItem().toString();
-            String semester = comboSemester.getSelectedItem().toString();
-        } catch (Exception e) {
+            nim = RandomNim.random();
+            nama = txtNama.getText().trim();
+            prodi = comboProdi.getSelectedItem().toString();
+            semester = Integer.parseInt(comboSemester.getSelectedItem().toString());
+            no_hp = txtNoHp.getText().trim();
+            email = txtEmail.getText().trim();
+            
+            
+            Connection conn = DatabaseConnection.connect();
+            String query = "INSERT INTO mahasiswa (nim, nama, prodi, semester, no_hp,email) VALUES (?,?,?,?,?,?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, nim);
+            stmt.setString(2,nama);
+            stmt.setString(3, prodi);
+            stmt.setInt(4, semester);
+            stmt.setString(5, no_hp);
+            stmt.setString(6, email);
+            stmt.executeUpdate();
+            
+            String queryUser = "INSERT INTO users (nama, password,akses,nim) VALUES(?,?,?,?)";
+            PreparedStatement stmtUser = conn.prepareStatement(queryUser);
+            String hasPass = HashUtil.hashPassword("123");
+            stmtUser.setString(1, nama);
+            stmtUser.setString(2, hasPass);
+            stmtUser.setString(3, "mahasiswa");
+            stmtUser.setString(4, nim);
+            stmtUser.executeUpdate();
+            tampilDataMahasiswa();
+            clearForm();
+            
+            JOptionPane.showMessageDialog(this, "Berhasil membuat data mahasiswa");
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal membuat data Mahasiswa : " + e.getMessage() );
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
-
-    private void tableMahasiswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMahasiswaMouseClicked
-        // TODO add your handling code here:
-        
-            int baris = tableMahasiswa.rowAtPoint(evt.getPoint());
-            
-            String nim = tableMahasiswa.getValueAt(baris, 0).toString();
-            
-            try {
-            Connection conn = DatabaseConnection.connect();
-            String query = "SELECT * FROM mahasiswa WHERE nim =? ";
-            PreparedStatement stmt = conn.prepareStatement(query);
-        } catch (Exception e) {
-        }
-            
-
-    }//GEN-LAST:event_tableMahasiswaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -299,8 +341,7 @@ public class FormMahasiswa extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                String nim = "";
-                FormMahasiswa dialog = new FormMahasiswa(new javax.swing.JFrame(), true, nim);
+                FormMahasiswa dialog = new FormMahasiswa(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -320,7 +361,6 @@ public class FormMahasiswa extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

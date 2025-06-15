@@ -12,16 +12,19 @@ public class DashboardMahasiswa extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardMahasiswa.class.getName());
 
-    private String nimUser, aksesUser;
+    private String nimUser, aksesUser, namaUser;
     
     /**
      * Creates new form DashboardMahasiswa
      */
-    public DashboardMahasiswa(String nim, String akses) {
+    public DashboardMahasiswa(String nim, String akses, String nama) {
         initComponents();
         
         this.nimUser = nim;
         this.aksesUser = akses;
+        this.namaUser = nama;
+        
+        txtNim.setText(nimUser);
     }
 
     /**
@@ -33,6 +36,7 @@ public class DashboardMahasiswa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtNim = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -40,6 +44,8 @@ public class DashboardMahasiswa extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DASHBOARD MAHASISWA");
+
+        txtNim.setText("jLabel1");
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -62,11 +68,17 @@ public class DashboardMahasiswa extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(txtNim, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(txtNim)
+                .addContainerGap(214, Short.MAX_VALUE))
         );
 
         pack();
@@ -76,7 +88,11 @@ public class DashboardMahasiswa extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         
-        new FormPengajuanMagang(nimUser).setVisible(true);
+        FormPengajuanMagang formPengajuanMagang = new FormPengajuanMagang(this, false, nimUser, namaUser);
+        
+        formPengajuanMagang.setLocationRelativeTo(this);
+        formPengajuanMagang.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
@@ -113,5 +129,6 @@ public class DashboardMahasiswa extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JLabel txtNim;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,8 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Admin;
-
+package Admin; 
 /**
  *
  * @author muhrobby
@@ -21,6 +20,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         initComponents();
         this.nimUser = nim;
         this.aksesUser = akses;
+        
     }
 
     /**
@@ -32,6 +32,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        desktopAdminPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -40,6 +41,18 @@ public class DashboardAdmin extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("DASHBOARD ADMIN");
+
+        javax.swing.GroupLayout desktopAdminPaneLayout = new javax.swing.GroupLayout(desktopAdminPane);
+        desktopAdminPane.setLayout(desktopAdminPaneLayout);
+        desktopAdminPaneLayout.setHorizontalGroup(
+            desktopAdminPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 888, Short.MAX_VALUE)
+        );
+        desktopAdminPaneLayout.setVerticalGroup(
+            desktopAdminPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 534, Short.MAX_VALUE)
+        );
 
         jMenu2.setText("Mahasiswa");
 
@@ -69,11 +82,11 @@ public class DashboardAdmin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(desktopAdminPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
+            .addComponent(desktopAdminPane)
         );
 
         pack();
@@ -82,9 +95,12 @@ public class DashboardAdmin extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-            FormMahasiswa formMahasiswa = new FormMahasiswa(this, false, nimUser);
-            
-            formMahasiswa.setVisible(true);
+
+        FormMahasiswa formMahasiswa = new FormMahasiswa(this, false, nimUser);
+        
+        formMahasiswa.setLocationRelativeTo(this);
+        formMahasiswa.setVisible(true);
+
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -118,6 +134,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane desktopAdminPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
