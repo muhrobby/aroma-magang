@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
@@ -29,9 +29,10 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
     public FormPengajuanMagang(java.awt.Frame parent, boolean modal, String nim, String nama) {
         super(parent, modal);
         initComponents();
-        tampilFormPengajuanMagang();
+
         this.nimUser = nim;
         this.namaUser = nama;
+                tampilFormPengajuanMagang();
         
         jTextField1.setEnabled(false);
         jTextField2.setEnabled(false);
@@ -42,19 +43,20 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
     public final void tampilFormPengajuanMagang (){
         try {
            Connection conn = DatabaseConnection.connect();
-           String query = "SELECT * FROM pengajuan";
+           String query = "SELECT * FROM pengajuan WHERE nim = ?";
            PreparedStatement stmt = conn.prepareStatement(query);
+           stmt.setString(1, nimUser);
            ResultSet rs = stmt.executeQuery();
             
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"id","nim","nama","prodi","tempat","alamat", "dosen"},0);
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"id","nim","nama","prodi","tempat","alamat", "dosen", "status","created_at"},0);
         
             while (rs.next()) {                
                 model.addRow(new Object[]{
-                rs.getString("id"),
+                rs.getInt("id"),
                 rs.getString("nim"),
                 rs.getString("nama"),
                 rs.getString("prodi"),
-                rs.getInt("tempat"),
+                rs.getString("tempat"),
                 rs.getString("alamat"),
                 rs.getString("dosen"),
                 rs.getString("status"),
@@ -167,13 +169,14 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
                     .addComponent(jLabel10)
                     .addComponent(jLabel12))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField2)
+                        .addComponent(jComboBox1, 0, 210, Short.MAX_VALUE)
+                        .addComponent(jTextField3)
+                        .addComponent(jTextField4)
+                        .addComponent(jTextField1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -195,18 +198,17 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(jLabel12)
                 .addContainerGap(48, Short.MAX_VALUE))
         );
@@ -265,7 +267,7 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
             try{
-                Connection conn = DatabaseConnection.getConnection();
+                Connection conn = DatabaseConnection.connect();
                 String sql = "INSERT INTO pengajuan (nim, nama, prodi, tempat, alamat, dosen, status) VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement pst = conn.prepareStatement(sql);
                 pst.setString(1, nim);
@@ -274,9 +276,11 @@ public class FormPengajuanMagang extends javax.swing.JDialog {
                 pst.setString(4, tempat);
                 pst.setString(5, alamat);
                 pst.setString(6, dosen);
+                pst.setString(7, "diproses");
 
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
+                tampilFormPengajuanMagang();
             }catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + e.getMessage());
             }
