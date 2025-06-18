@@ -5,6 +5,7 @@
 package Admin;
 import java.sql.*;
 import Config.DatabaseConnection;
+import javax.swing.JOptionPane;
 /**
  *
  * @author muhrobby
@@ -21,8 +22,14 @@ public class FormApproval extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.nimMahasiswa = nim;
-        jLabel1.setText(nimMahasiswa);
         tampilData();
+        txtNama.setEnabled(false);
+        txtNim.setEnabled(false);
+        txtProdi.setEnabled(false);
+        txtTempat.setEnabled(false);
+        txtAlamat.setEnabled(false);
+        txtDosen.setEnabled(false);
+        
     }
 
     public void tampilData(){
@@ -42,7 +49,8 @@ public class FormApproval extends javax.swing.JDialog {
                txtDosen.setText(rs.getString("dosen"));
                comboStatus.setSelectedItem(rs.getString("status"));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal mengambil data : " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     
     }
@@ -72,9 +80,9 @@ public class FormApproval extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         comboStatus = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("FORM APPROVAL");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -90,16 +98,25 @@ public class FormApproval extends javax.swing.JDialog {
 
         jLabel7.setText("Dosen  :");
 
+        txtNama.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
+        txtNim.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
+        txtProdi.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtProdi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtProdiActionPerformed(evt);
             }
         });
 
+        txtTempat.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
         txtAlamat.setColumns(20);
         txtAlamat.setRows(5);
+        txtAlamat.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(txtAlamat);
 
+        txtDosen.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtDosen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDosenActionPerformed(evt);
@@ -108,7 +125,7 @@ public class FormApproval extends javax.swing.JDialog {
 
         jLabel8.setText("Status   :");
 
-        comboStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ditolak", "Diterima", "Diproses" }));
+        comboStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "diproses", "diterima", "ditolak" }));
         comboStatus.setSelectedIndex(-1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -183,17 +200,18 @@ public class FormApproval extends javax.swing.JDialog {
         );
 
         jButton1.setText("Simpan");
-
-        jLabel1.setText("jLabel1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addContainerGap(301, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,11 +223,9 @@ public class FormApproval extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(362, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
-                .addGap(20, 20, 20))
+                .addContainerGap(353, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -227,6 +243,25 @@ public class FormApproval extends javax.swing.JDialog {
     private void txtDosenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDosenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDosenActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String status = comboStatus.getSelectedItem().toString();
+        try {
+            Connection conn = DatabaseConnection.connect();
+            String query = "UPDATE pengajuan SET status = ? WHERE nim = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, status);
+            stmt.setString(2, nimMahasiswa);
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(this, "Berhasil update status pengajuan", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal update status : "+e.getMessage(),"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,7 +303,6 @@ public class FormApproval extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboStatus;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
