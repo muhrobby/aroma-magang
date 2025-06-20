@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package Admin;
+package Admin.Pengajuan;
 import java.sql.*;
 import Config.DatabaseConnection;
 import javax.swing.JOptionPane;
@@ -89,7 +89,7 @@ public class ListPengajuanSemua extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePengajuan = new javax.swing.JTable();
         btnEdit = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -122,10 +122,10 @@ public class ListPengajuanSemua extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("Hapus Data");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnHapus.setText("Hapus Data");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnHapusActionPerformed(evt);
             }
         });
 
@@ -172,7 +172,7 @@ public class ListPengajuanSemua extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -187,7 +187,7 @@ public class ListPengajuanSemua extends javax.swing.JDialog {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -196,9 +196,49 @@ public class ListPengajuanSemua extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here: //button Edit Data
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        
+        int baris = tablePengajuan.getSelectedRow();
+        
+        if (baris == -1) {
+            JOptionPane.showMessageDialog(this, "Tidak ada data yang di pilih", "PERINGATAN", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        int confirm = JOptionPane.showConfirmDialog(this, "Anda yakin ingin mengahpus data ini ? ", "KONFIMASI", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+                    try {
+         nim = tablePengajuan.getValueAt(baris, 1).toString();
+         Connection conn = DatabaseConnection.connect();
+         String sqlDelete = "DELETE FROM pengajuan WHERE nim = ?";
+         PreparedStatement stmt = conn.prepareStatement(sqlDelete);
+         stmt.setString(1, nim);
+         
+         int delete = stmt.executeUpdate();
+         
+                        if (delete > 0) {
+                            JOptionPane.showMessageDialog(this, "Data berhasil di hapus");
+                            tampilDataPengajuan();
+                                    totalDiproses();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Gagal menghapus ID tidak di temukan","ERROR",JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+         
+         
+         
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error : "+e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        }
+        
+
+
+        
+        
+    }//GEN-LAST:event_btnHapusActionPerformed
 
     private void tablePengajuanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePengajuanMouseClicked
         // TODO add your handling code here:
@@ -220,6 +260,7 @@ public class ListPengajuanSemua extends javax.swing.JDialog {
         formApproval.setVisible(true);
         
         tampilDataPengajuan();  
+                totalDiproses();
         
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -262,7 +303,7 @@ public class ListPengajuanSemua extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnHapus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
