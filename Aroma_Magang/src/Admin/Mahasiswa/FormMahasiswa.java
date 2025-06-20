@@ -194,6 +194,21 @@ public class FormMahasiswa extends javax.swing.JDialog {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        
+        int baris = tableMahasiswa.getSelectedRow();
+        
+        if (baris == -1) {
+            JOptionPane.showMessageDialog(this, "Tidak ada data yang dipilih");
+            return;
+        }
+        
+        String nim = tableMahasiswa.getValueAt(baris, 0).toString();
+        
+        FormEdit edit = new FormEdit(this, true, nim);
+        edit.setLocationRelativeTo(this);
+        edit.setVisible(true);
+        tampilDataMahasiswa();
+        
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
