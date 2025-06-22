@@ -4,6 +4,8 @@
  */
 package Mahasiswa;
 
+import Mahasiswa.Pengajuan.FormPengajuanMagang;
+
 /**
  *
  * @author muhrobby
