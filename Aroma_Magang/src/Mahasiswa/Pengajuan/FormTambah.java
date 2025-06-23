@@ -36,7 +36,7 @@ public class FormTambah extends javax.swing.JDialog {
     public void tampilData(){
         try {
             Connection conn = DatabaseConnection.connect();
-            String query = "SELECT * FROM pengajuan WHERE nim = ?";
+            String query = "SELECT * FROM mahasiswa WHERE nim = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, nimUser);
             ResultSet rs = stmt.executeQuery();
@@ -78,7 +78,7 @@ public class FormTambah extends javax.swing.JDialog {
         jTextArea1 = new javax.swing.JTextArea();
         comboProdi = new javax.swing.JComboBox<>();
         txtNim = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnSimpan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FORM BUAT PENGAJUAN");
@@ -109,10 +109,10 @@ public class FormTambah extends javax.swing.JDialog {
 
         txtNim.setDisabledTextColor(new java.awt.Color(0, 0, 0));
 
-        jButton1.setText("Buat Pengajuan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSimpan.setText("Buat Pengajuan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSimpanActionPerformed(evt);
             }
         });
 
@@ -123,7 +123,7 @@ public class FormTambah extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                    .addComponent(btnSimpan)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -180,7 +180,7 @@ public class FormTambah extends javax.swing.JDialog {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -189,7 +189,7 @@ public class FormTambah extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
         String nim = txtNim.getText();
         String nama = txtNama.getText();
@@ -221,7 +221,7 @@ public class FormTambah extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Gagal menyimpan data: " + e.getMessage());
             }
             this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSimpanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,8 +261,8 @@ public class FormTambah extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSimpan;
     private javax.swing.JComboBox<String> comboProdi;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
